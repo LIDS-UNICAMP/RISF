@@ -79,62 +79,69 @@ Note that this implementation is geared towards the recursive operation over
   Forest (ISF) implementation available at:
   'https://www.ic.unicamp.br/~afalcao/downloads.html'.
 
-Usage:
-  iftRISF_segmentation [OPTIONS]
+Usage: 
+
+    iftRISF_segmentation [OPTIONS]
 
 The following options are required:
-  -i, --input-image     [HAS ARG] Input image path.
-  -o, --output-image    [HAS ARG] Output label map image.
-  -n, --superpixel-num  [HAS ARG] Target number of superpixels.
-  -l, --prev-seg        [HAS ARG] Previous segmentation label map.
 
-The following options are optional and customize how the method operates:
-  -s, --sampling        [HAS ARG] Seed sampling strategy:
-      1 = Grid (DEFAULT) - Only strategy used in the corresponding paper
-      2 = Mixed - The entropy based strategy from (Vargas et al., 2019)
-      3 = Random
-      4 = Geodesic - The maximum geodesic cost strategy from (Galvao et al., 2018)
+    -i, --input-image     [HAS ARG] Input image path.
+    -o, --output-image    [HAS ARG] Output label map image.
+    -n, --superpixel-num  [HAS ARG] Target number of superpixels.
+    -l, --prev-seg        [HAS ARG] Previous segmentation label map.
 
-  -c, --path-cost       [HAS ARG] Path-cost function for non-trivial paths:
-      1 = Root (DEFAULT)
-      2 = Mean
-
-  -r, --seed-recomp     [HAS ARG] Seed recomputation method:
-      1 = Medoid - Node with feature vector closes to mean
-      2 = Centroid
-      DEFAULT is based on path cost, medoid for root and centroid for mean.
-
-  -a, --alpha           [HAS ARG] Linear weight for the parametric distance.
-      Smaller is more compact. Recommended range [0.12,0.5] for natural
-      images. Default is 0.2.
-
-  -b, --beta            [HAS ARG] Exponential weight for the parametric distance.
-      DEFAULT is 12.
-
-  -t, --iters-num       [HAS ARG] Number of iterations. 
-      DEFAULT is 10.
-
-  -p, --print-opt       [HAS ARG] Printing options:
-      0 = Nothing is printed
-      1 = Print human-readable stats (DEFAULT)
-      2 = Print CSV formatted stats
-
-  -x, --output-format   [HAS ARG] Output label map format:
-      0 = Deduce by file extension (DEFAULT)
-      1 = Netpbm PGM P2 (ASCII)
-      2 = Netpbm PGM P5 (binary)
+The following options are optional and customize how the method operates: 
+  
+    -s, --sampling        [HAS ARG] Seed sampling strategy:
+        1 = Grid (DEFAULT) - Only strategy used in the corresponding paper
+        2 = Mixed - The entropy based strategy from (Vargas et al., 2019)
+        3 = Random
+        4 = Geodesic - The maximum geodesic cost strategy from (Galvao et al., 2018)
+      
+    -c, --path-cost       [HAS ARG] Path-cost function for non-trivial paths:
+        1 = Root (DEFAULT)
+        2 = Mean
+      
+    -r, --seed-recomp     [HAS ARG] Seed recomputation method:
+        1 = Medoid - Node with feature vector closes to mean
+        2 = Centroid
+        DEFAULT is based on path cost, medoid for root and centroid for mean.
+      
+    -a, --alpha           [HAS ARG] Linear weight for the parametric distance.
+        Smaller is more compact. Recommended range [0.12,0.5] for natural
+        images. DEFAULT is 0.2.
+      
+    -b, --beta            [HAS ARG] Exponential weight for the parametric distance.
+        DEFAULT is 12.
+      
+    -t, --iters-num       [HAS ARG] Number of iterations. 
+        DEFAULT is 10.
+      
+    -p, --print-opt       [HAS ARG] Printing options:
+        0 = Nothing is printed
+        1 = Print human-readable stats (DEFAULT)
+        2 = Print CSV formatted stats
+      
+    -x, --output-format   [HAS ARG] Output label map format:
+        0 = Deduce by file extension (DEFAULT)
+        1 = Netpbm PGM P2 (ASCII)
+        2 = Netpbm PGM P5 (binary)
 
 Help Options
-  -h, --help            Show help options
+
+    -h, --help            Show help options
 
 Example of how to use this program:
-  ./bin/iftRISF_segmentation -i dat/berkley_horse.jpg -o dat/horse_risf.pgm -n 200 -l dat/horse_isf.pgm
+
+    ./bin/iftRISF_segmentation -i dat/berkley_horse.jpg -o dat/horse_risf.pgm -n 200 -l dat/horse_isf.pgm
+
     This will compute a superpixel segmentation 'dat/horse_risf.pgm' 
       over the image 'dat/berkley_horse.jpg' with approximately 
       200 regions. Following from the default parameters, this defines
       a RISF method with grid sampling, root path-cost function (alpha = 0.2
       and beta = 12), seed recomputation selecting node closest to mean,
       and 10 iterations.
+      
     See iftOverlayBorders to generate a visualization of the label map over
       the original image.
 
@@ -152,30 +159,36 @@ Note that its interface is analogous to the iftRISF_segmentation program,
   algorithm in itself is parameterless.
 
 Usage:
-  iftMidLevelRegionMerge [OPTIONS]
+
+    iftMidLevelRegionMerge [OPTIONS]
 
 The following options are required:
-  -i, --input-image     [HAS ARG] Input image path.
-  -o, --output-image    [HAS ARG] Output label map image.
-  -n, --superpixel-num  [HAS ARG] Target number of superpixels.
-  -l, --prev-seg        [HAS ARG] Previous segmentation label map.
+
+    -i, --input-image     [HAS ARG] Input image path.
+    -o, --output-image    [HAS ARG] Output label map image.
+    -n, --superpixel-num  [HAS ARG] Target number of superpixels.
+    -l, --prev-seg        [HAS ARG] Previous segmentation label map.
 
 The following options are optional and customize how the method operates:
-  -p, --print-opt       [HAS ARG] Printing options:
-      0 = Nothing is printed
-      1 = Print human-readable stats (DEFAULT)
-      2 = Print CSV formatted stats
 
-  -x, --output-format   [HAS ARG] Output label map format:
-      0 = Deduce by file extension (DEFAULT)
-      1 = Netpbm PGM P2 (ASCII)
-      2 = Netpbm PGM P5 (binary)
+    -p, --print-opt       [HAS ARG] Printing options:
+        0 = Nothing is printed
+        1 = Print human-readable stats (DEFAULT)
+        2 = Print CSV formatted stats
+
+    -x, --output-format   [HAS ARG] Output label map format:
+        0 = Deduce by file extension (DEFAULT)
+        1 = Netpbm PGM P2 (ASCII)
+        2 = Netpbm PGM P5 (binary)
 
 Help Options
-  -h, --help            Show help options
+
+    -h, --help            Show help options
 
 Example of how to use this program:
-  ./bin/iftMidLevelRegionMerge -i dat/berkeley_sphinx.jpg -o dat/sphinx_merge.pgm -n 100 -l dat/sphinx_risf.pgm
+
+    ./bin/iftMidLevelRegionMerge -i dat/berkeley_sphinx.jpg -o dat/sphinx_merge.pgm -n 100 -l dat/sphinx_risf.pgm
+    
     This will compute a superpixel segmentation 'dat/sphinx_merge.pgm' 
       over the image 'dat/berkley_sphinx.jpg' with exactly 100 regions.
 
@@ -192,46 +205,52 @@ The segmentations are interpreted as label maps by default, but binary border
   maps can also be used (see options -ib and -gb). 
 
 Usage:
-  iftComputeSegmentationMetrics [OPTIONS]
+
+    iftComputeSegmentationMetrics [OPTIONS]
 
 The following options are required:
-  -i, --input-segmentation  [HAS ARG] Input image segmentation path.
-  -g, --input-groundtruth   [HAS ARG] Input ground-truth prefix.
-      All label maps matching the supplied prefix will be considered.
+
+    -i, --input-segmentation  [HAS ARG] Input image segmentation path.
+    -g, --input-groundtruth   [HAS ARG] Input ground-truth prefix.
+        All label maps matching the supplied prefix will be considered.
 
 The following options are optional and customize how the method operates:
-  -ib, --is-border-seg      Interpret segmentation as a border map.
-  -gb, --is-border-gt       Interpret ground-truth as a border map.
-  -t, --boundary-tolerance  [HAS ARG] Maximum distance to count as valid border pixel (default = 2.0).
-  -br, --boundary-recall    Compute boundary recall (BR).
-  -bp, --boundary-precision Compute boundary precision (BP).
-  -bf, --boundary-fscore    Compute boundary f-score (BF).
-  -u, --border-union        Compute border statistics for union of all gt images (UBR, UBP, UBF).
-  -ue, --undersegmentation  Compute undersegmentation error (UE).
-  -as, --achievable-seg     Compute achievable segmentation accuracy (ASA).
-  -c, --compactness         Compute compactness.
-  -sp, --std-superpixels    Compute standard superpixel metrics (equivalent to -br -ue -as -c).
-  -d, --dice                [HAS ARG] Compute dice for [param] objects.
-  -to, --topology           Compute topology metric.
-  -cv, --covering           Compute covering.
-  -vi, --variation-of-info  Compute variation of information.
-  -ri, --prob-rand-index    Compute probabilistic rand index.
-  -ls, --std-large-segment  Compute standard large segment metrics (equivalent to -cv -vi -ri).
-  -p, --print-opt           [HAS ARG] Printing options:
-      1 = Print human-readable stats (DEFAULT)
-      2 = Print CSV formatted stats
-      3 = Print CSV header (dummy values for -i and -g can be used)
-      4 = Print CSV header with standard deviation (std)
+
+    -ib, --is-border-seg      Interpret segmentation as a border map.
+    -gb, --is-border-gt       Interpret ground-truth as a border map.
+    -t, --boundary-tolerance  [HAS ARG] Maximum distance to count as valid border pixel (default = 2.0).
+    -br, --boundary-recall    Compute boundary recall (BR).
+    -bp, --boundary-precision Compute boundary precision (BP).
+    -bf, --boundary-fscore    Compute boundary f-score (BF).
+    -u, --border-union        Compute border statistics for union of all gt images (UBR, UBP, UBF).
+    -ue, --undersegmentation  Compute undersegmentation error (UE).
+    -as, --achievable-seg     Compute achievable segmentation accuracy (ASA).
+    -c, --compactness         Compute compactness.
+    -sp, --std-superpixels    Compute standard superpixel metrics (equivalent to -br -ue -as -c).
+    -d, --dice                [HAS ARG] Compute dice for [param] objects.
+    -to, --topology           Compute topology metric.
+    -cv, --covering           Compute covering.
+    -vi, --variation-of-info  Compute variation of information.
+    -ri, --prob-rand-index    Compute probabilistic rand index.
+    -ls, --std-large-segment  Compute standard large segment metrics (equivalent to -cv -vi -ri).
+    -p, --print-opt           [HAS ARG] Printing options:
+        1 = Print human-readable stats (DEFAULT)
+        2 = Print CSV formatted stats
+        3 = Print CSV header (dummy values for -i and -g can be used)
+        4 = Print CSV header with standard deviation (std)
 
 Help Options
-  -h, --help            Show help options
+
+    -h, --help            Show help options
 
 Example of how to use this program:
-  ./bin/iftComputeSegmentationMetrics -i dat/sphinx_risf.pgm -g dat/sphinx_gt -sp -gb
+
+    ./bin/iftComputeSegmentationMetrics -i dat/sphinx_risf.pgm -g dat/sphinx_gt -sp -gb
+    
     This will compute and print the boundary recall, undersegmentation error,
-    achievable segmentation accuracy and compactness of the segmentation
-    'dat/sphinx_risf' against the border map ground truth segmentations
-    'dat/sphinx_gt_1.pgm' and 'dat/sphinx_gt_2.pgm'. 
+      achievable segmentation accuracy and compactness of the segmentation
+      'dat/sphinx_risf' against the border map ground truth segmentations
+      'dat/sphinx_gt_1.pgm' and 'dat/sphinx_gt_2.pgm'. 
 
 ------------------------------------------------------------------------------
  2.4 - iftOverlayBorders
@@ -241,12 +260,15 @@ This program creates a visualization of the original image overlaid by the
   borders from one or more segmentations (either label or border map).
 
 Usage:
-  iftOverlayBorders <original image> <result path (with extension)> <segmentation 1> [<segmentation 2>...]
+
+    iftOverlayBorders <original image> <result path (with extension)> <segmentation 1> [<segmentation 2>...]
 
 Example:
-  ./bin/iftOverlayBorders dat/berkeley_horse.jpg dat/vis_horse.png dat/horse_isf.pgm
-    This will create the visualization 'dat/vis_horse.png' with the borders
-    from the label map 'dat/horse_isf.pgm' over the image 'dat/berkeley_horse'.
+
+    ./bin/iftOverlayBorders dat/berkeley_horse.jpg dat/vis_horse.png dat/horse_isf.pgm
+    
+      This will create the visualization 'dat/vis_horse.png' with the borders
+        from the label map 'dat/horse_isf.pgm' over the image 'dat/berkeley_horse'.
 
 ------------------------------------------------------------------------------
  2.5 - iftShowConnectivityProblems
@@ -257,15 +279,18 @@ This program examines a given label map to check if it is 4-connected,
   of identified connectivity problems.
 
 Usage:
-  iftShowConnectivityProblems <input label map> [<original image> <output visualization prefix>]
+
+    iftShowConnectivityProblems <input label map> [<original image> <output visualization prefix>]
 
 Example:
-  ./bin/iftShowConnectivityProblems dat/horse_isf.pgm dat/berkeley_horse.jpg dat/vis_connectivity
-    This will tell if the label map 'dat/horse_isf.pgm' is connected and
-    what type of connectivity it is (4-connected in this case). If any
-    disconnected regions were found, each one would create a visualization
-    with prefix 'dat/vis_connectivity' overlaying the disjoint region borders
-    over the original image 'dat/berkeley_horse'.
+
+    ./bin/iftShowConnectivityProblems dat/horse_isf.pgm dat/berkeley_horse.jpg dat/vis_connectivity
+    
+      This will tell if the label map 'dat/horse_isf.pgm' is connected and
+        what type of connectivity it is (4-connected in this case). If any
+        disconnected regions were found, each one would create a visualization
+        with prefix 'dat/vis_connectivity' overlaying the disjoint region borders
+        over the original image 'dat/berkeley_horse'.
 
 ------------------------------------------------------------------------------
  2.6 - iftForceLabelMapConnectivity
@@ -277,12 +302,15 @@ This program uses a connected components algorithm to relabel the regions
   them with an arbitrary neighboring region.
 
 Usage:
-  iftForceLabelMapConnectivity <input label map> <output label map> [minimum region size to avoid filter]
+
+    iftForceLabelMapConnectivity <input label map> <output label map> [minimum region size to avoid filter]
 
 Example:
-  ./bin/iftForceLabelMapConnectivity dat/horse_isf.pgm dat/horse_isf_relabel.pgm 50
+
+    ./bin/iftForceLabelMapConnectivity dat/horse_isf.pgm dat/horse_isf_relabel.pgm 50
+  
     This will relabel each connected component of the label map 
-    'dat/horse_isf.pgm', filtering those with size below 50 pixels
-    and saving the result on 'dat/horse_isf_relabel.pgm'.
+      'dat/horse_isf.pgm', filtering those with size below 50 pixels
+      and saving the result on 'dat/horse_isf_relabel.pgm'.
 
 
